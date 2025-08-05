@@ -18,8 +18,9 @@ cd ../..
 echo -e "$GREEN CHANGING DEVICE NODE PERMISSIONS $CLEAR"
 sudo chmod 666 /dev/mydev
 
+echo -e "$GREEN RUNNING THE GAME $CLEAR"
+cd game
+python3 main.py
+
 echo -e "$GREEN DONE! $CLEAR"
-echo ""
-echo -e "$GREEN IN ORDER TO RUN THE APPLICATION RUN: $CLEAR"
-echo -e "$GREEN\t ./app/build/release/app $CLEAR"
 
