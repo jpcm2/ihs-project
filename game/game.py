@@ -1,9 +1,13 @@
 import pygame
 import sys
+import os
 from board import Board
 from settings import *
+from utils import PATH, read_button
 
+fd = os.open(PATH, os.O_RDWR)
 class Game:
+    global fd
     def __init__(self, board_data, board_backup):
         pygame.init()
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -39,6 +43,10 @@ class Game:
             pygame.draw.rect(self.win, LIGHTBLUE, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 3)
 
     def handle_events(self):
+
+        # TODO: Em tese, esse button armazena o binario do botao. Comparar com o dicionário de buttons
+        button = read_button(fd=fd, show_output_msg=False)
+        print(button)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
