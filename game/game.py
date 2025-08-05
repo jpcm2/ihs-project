@@ -54,11 +54,9 @@ class Game:
                         col = max(col - 1, 0)
                     elif event.key == pygame.K_RIGHT:
                         col = min(col + 1, GRID_SIZE - 1)
-                    elif event.key == pygame.K_UP:
-                        row = max(row - 1, 0)
                     elif event.key == pygame.K_DOWN:
-                        row = min(row + 1, GRID_SIZE - 1)
-                    elif event.key == pygame.K_SPACE:
+                        row = min((row + 1)%9, GRID_SIZE - 1)
+                    elif event.key == pygame.K_UP:
                         current = self.board.board[row][col]
                         self.board.update_cell(row, col, (current + 1) % 10)
                     elif event.unicode.isdigit():
