@@ -47,7 +47,7 @@ class Game:
         # TODO: Em tese, esse button armazena o binario do botao. Comparar com o dicionário de buttons
         button = read_button(fd=fd, show_output_msg=False)
         button_pressed = BUTTONS_OPTIONS.get(button, None)
-        if button_pressed == NOnr:
+        if button_pressed == None:
             return
         if (not self.game_over) and (button_pressed != "IDLE"):
             row, col = self.selected
