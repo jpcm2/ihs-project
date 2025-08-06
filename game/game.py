@@ -46,16 +46,18 @@ class Game:
 
         # TODO: Em tese, esse button armazena o binario do botao. Comparar com o dicionário de buttons
         button = read_button(fd=fd, show_output_msg=False)
-        button_pressed = BUTTONS_OPTIONS[button]
+        button_pressed = BUTTONS_OPTIONS.get(button, None)
+        if button_pressed == NOnr:
+            return
         if (not self.game_over) and (button_pressed != "IDLE"):
             row, col = self.selected
             if button_pressed == 'LEFT':
                 col = max(col - 1, 0)
-            elif event.key == 'RIGHT':
+            elif button_pressed == 'RIGHT':
                 col = min(col + 1, GRID_SIZE - 1)
-            elif event.key == 'DOWN':
+            elif button_pressed == 'DOWN':
                 row = min((row + 1)%9, GRID_SIZE - 1)
-            elif event.key == 'UP':
+            elif button_pressed == 'UP':
                 current = self.board.board[row][col]
                 self.board.update_cell(row, col, (current + 1) % 10)
             self.selected = (row, col)
