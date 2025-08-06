@@ -14,7 +14,7 @@ BUTTONS_OPTIONS = {
     '0b1101': "LEFT",
     '0b1011': "RIGHT",
     '0b111': "DOWN",
-    'Ob1111': "IDLE",
+    '0b1111': "IDLE",
     '0b0000': 'QUIT'
 }
 
