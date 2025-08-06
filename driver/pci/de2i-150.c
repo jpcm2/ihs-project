@@ -7,6 +7,7 @@
 #include <linux/cdev.h>		/* char device registration */
 #include <linux/uaccess.h>	/* copy_*_user functions */
 #include <linux/pci.h>		/* pci funcs and types */
+#include <linux/device.h>
 
 #include "../../include/ioctl_cmds.h"
 
@@ -35,7 +36,7 @@ static int	my_open   (struct inode*, struct file*);
 static int 	my_close  (struct inode*, struct file*);
 static ssize_t 	my_read   (struct file*, char __user*, size_t, loff_t*);
 static ssize_t 	my_write  (struct file*, const char __user*, size_t, loff_t*);
-static long int	my_ioctl  (struct file*, unsigned int, unsigned long);
+static long int	my_ioctl  (struct file* filp, unsigned int, unsigned long);
 
 /* pci functions */
 
@@ -125,7 +126,7 @@ static int __init my_init(void)
 	printk("my_driver: device number %d was registered!\n", MAJOR(my_device_nbr));
 
 	/* 2. create class : appears at /sys/class */
-	if ((my_class = class_create(THIS_MODULE, DRIVER_CLASS)) == NULL) {
+	if ((my_class = class_create(DRIVER_CLASS)) == NULL) {
 		printk("my_driver: device class count not be created!\n");
 		goto ClassError;
 	}
@@ -229,7 +230,7 @@ static ssize_t my_write(struct file* filp, const char __user* buf, size_t count,
 	return retval;
 }
 
-static long int my_ioctl(struct file*, unsigned int cmd, unsigned long arg)
+static long int my_ioctl(struct file* filp, unsigned int cmd, unsigned long arg)
 {
 	switch(cmd){
 	case RD_SWITCHES:

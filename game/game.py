@@ -3,7 +3,7 @@ import sys
 import os
 from board import Board
 from settings import *
-from utils import PATH, read_button
+from utils import PATH, read_button, BUTTONS_OPTIONS
 
 fd = os.open(PATH, os.O_RDWR)
 class Game:
@@ -46,7 +46,19 @@ class Game:
 
         # TODO: Em tese, esse button armazena o binario do botao. Comparar com o dicionário de buttons
         button = read_button(fd=fd, show_output_msg=False)
-        print(button)
+        button_pressed = BUTTONS_OPTIONS[button]
+        if (not self.game_over) and (button_pressed != "IDLE"):
+            row, col = self.selected
+            if button_pressed == 'LEFT':
+                col = max(col - 1, 0)
+            elif event.key == 'RIGHT':
+                col = min(col + 1, GRID_SIZE - 1)
+            elif event.key == 'DOWN':
+                row = min((row + 1)%9, GRID_SIZE - 1)
+            elif event.key == 'UP':
+                current = self.board.board[row][col]
+                self.board.update_cell(row, col, (current + 1) % 10)
+            self.selected = (row, col)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

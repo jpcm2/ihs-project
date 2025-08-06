@@ -10,10 +10,12 @@ PATH = '/dev/mydev'
 
 # TODO: Configurar o dicionario para fazer os movimentos corretos de 
 BUTTONS_OPTIONS = {
-    '0b0001': "UP", 
-    '0b0010': "LEFT",
-    '0b0100': "RIGHT",
-    '0b1000': "DOWN",
+    '0b1110': "UP", 
+    '0b1101': "LEFT",
+    '0b1011': "RIGHT",
+    '0b111': "DOWN",
+    'Ob1111': "IDLE",
+    '0b0000': 'QUIT'
 }
 
 # TODO: Método que le o botão.
